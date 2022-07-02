@@ -17,7 +17,7 @@ namespace Children_sRatingApp
             Console.WriteLine("Type 'a' to add or 'r' to remove.");
             Console.WriteLine("Type 's' to see the current stats, 'l' to see lists or 'q' to exit.");
             Console.WriteLine(" ");
-            Console.WriteLine("Type 'memory' to save statistics in computer's cache or 'save' to be saved in a file.");
+            Console.WriteLine("Type 'memory' to save statistics in computer's cache or 'file' to be saved in a file.");
             Console.WriteLine("I suggest using 'memory' to test the application and the 'file' for normal use.");
             var inputMain = Console.ReadLine();
             if (inputMain == "memory")
@@ -67,12 +67,8 @@ namespace Children_sRatingApp
                 }
                 else if (input == "l")
                 {
-                    var n = 1;
-                    foreach (var item in childInMemoryKrzysztof.RatingLists)
-                    {
-                        Console.WriteLine($"No.{n}:  {item}");
-                        n++;
-                    }
+                    childInMemoryKrzysztof.WritingOutList();
+                    
                     Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
                 }
                 else
@@ -98,14 +94,14 @@ namespace Children_sRatingApp
                     Console.WriteLine("Enter a value.");
                     var input2 = Console.ReadLine();
                     childSavedKrzysztof.AddRating(input2);
-                    Console.WriteLine("Select a command:'a', 'r', 's' or 'q'.");
+                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
                 }
                 else if (input == "r")
                 {
                     Console.WriteLine("Enter a value.");
                     var input2 = Console.ReadLine();
                     childSavedKrzysztof.RemoveRating(input2);
-                    Console.WriteLine("Select a command:'a', 'r', 's' or 'q'.");
+                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
                 }
                 else if (input == "s")
                 {
@@ -117,7 +113,14 @@ namespace Children_sRatingApp
                 }
                 else if (input == "l")
                 {
-                    throw new NotImplementedException("This command is not available");
+                    childSavedKrzysztof.WritingOutList();
+                    var n = 1;
+                    foreach (var item in childSavedKrzysztof.RatingLists)
+                    {
+                        Console.WriteLine($"No.{n}:  {item}");
+                        n++;
+                    }
+                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
                 }
                 else
                 {

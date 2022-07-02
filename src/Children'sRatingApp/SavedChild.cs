@@ -20,7 +20,24 @@ namespace Children_sRatingApp
         {
             get
             {
-                throw new NotImplementedException("This command is not available");
+                return ratingList;
+            }
+        }
+
+        private List<double> ratingList = new List<double>();
+
+        public override void WritingOutList()
+        {
+            using (var reader = File.OpenText($"{Name}{FileNameName}"))
+            {
+                ratingList.Clear();
+                var line = reader.ReadLine();
+                while (line != null)
+                {
+                    var number = double.Parse(line);
+                    ratingList.Add(number);
+                    line = reader.ReadLine();
+                }
             }
         }
 
@@ -174,7 +191,144 @@ namespace Children_sRatingApp
 
         public override void RemoveRating(string rate)
         {
-            throw new NotImplementedException("In progress...");
+            int result;
+            bool success = int.TryParse(rate, out result);
+            if (success == true)
+            {
+                if (result > 0 && result <= 6)
+                {
+                    ratingList.Remove(result);
+                    File.Delete($"{Name}{FileNameName}");
+                    File.Delete($"{Name}{FileNameAudit}");
+                    using (var writer = File.AppendText($"{Name}{FileNameName}"))
+                    {
+                        foreach (var item in ratingList)
+                        {
+                            writer.WriteLine(item);
+                        }
+                    }
+                    using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+                    {
+                        foreach (var item in ratingList)
+                        {
+                            writer.WriteLine($"{actualTime}: {item}");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("This grade is out of range. The range is 1-6 every half.");
+                }
+            }
+            else if (success == false)
+            {
+                if (rate == "1+" || rate == "2+" || rate == "3+" || rate == "4+" || rate == "5+")
+                {
+                    switch (rate)
+                    {
+                        case "1+":
+                            this.ratingList.Remove(1.5);
+                            File.Delete($"{Name}{FileNameName}");
+                            File.Delete($"{Name}{FileNameAudit}");
+                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine(item);
+                                }
+                            }
+                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine($"{actualTime}: {item}");
+                                }
+                            }
+                            break;
+                        case "2+":
+                            this.ratingList.Remove(2.5);
+                            File.Delete($"{Name}{FileNameName}");
+                            File.Delete($"{Name}{FileNameAudit}");
+                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine(item);
+                                }
+                            }
+                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine($"{actualTime}: {item}");
+                                }
+                            }
+                            break;
+                        case "3+":
+                            this.ratingList.Remove(3.5);
+                            File.Delete($"{Name}{FileNameName}");
+                            File.Delete($"{Name}{FileNameAudit}");
+                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine(item);
+                                }
+                            }
+                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine($"{actualTime}: {item}");
+                                }
+                            }
+                            break;
+                        case "4+":
+                            this.ratingList.Remove(4.5);
+                            File.Delete($"{Name}{FileNameName}");
+                            File.Delete($"{Name}{FileNameAudit}");
+                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine(item);
+                                }
+                            }
+                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine($"{actualTime}: {item}");
+                                }
+                            }
+                            break;
+                        case "5+":
+                            this.ratingList.Remove(5.5);
+                            File.Delete($"{Name}{FileNameName}");
+                            File.Delete($"{Name}{FileNameAudit}");
+                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine(item);
+                                }
+                            }
+                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+                            {
+                                foreach (var item in ratingList)
+                                {
+                                    writer.WriteLine($"{actualTime}: {item}");
+                                }
+                            }
+                            break;
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("Invalid value");
+                }
+            }
         }
     }
 }

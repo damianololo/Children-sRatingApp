@@ -8,6 +8,7 @@ namespace Children_sRatingApp
         public override event RateAddedDelegate RateAdded;
 
         private List<double> ratingLists = new List<double>();
+
         public override List<double> RatingLists
         {
             get
@@ -18,6 +19,16 @@ namespace Children_sRatingApp
         
         public InMemoryChild(string name) :base(name)
         {
+        }
+
+        public override void WritingOutList()
+        {
+            var n = 1;
+            foreach (var item in ratingLists)
+            {
+                Console.WriteLine($"No.{n}:  {item}");
+                n++;
+            }
         }
 
         public override void ChangeName(string newName)
@@ -157,6 +168,6 @@ namespace Children_sRatingApp
                 result.Add(ratingLists[index]);
             }
             return result;
-        }  
+        }
     }
 }
