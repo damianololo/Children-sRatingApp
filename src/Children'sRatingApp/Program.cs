@@ -32,7 +32,7 @@ namespace Children_sRatingApp
 
         private static void AddMemoryRate(IChildren childInMemoryKrzysztof)
         {
-            Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+            MiniMenu();
             while (true)
             {
                 var input = Console.ReadLine();
@@ -46,7 +46,7 @@ namespace Children_sRatingApp
                     Console.WriteLine("Enter a value.");
                     var input2 = Console.ReadLine();
                     childInMemoryKrzysztof.AddRating(input2);
-                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+                    MiniMenu();
                 }
                 else if (input == "r")
                 {
@@ -54,7 +54,7 @@ namespace Children_sRatingApp
                     Console.WriteLine("Enter a value.");
                     var input2 = Console.ReadLine();
                     childInMemoryKrzysztof.RemoveRating(input2);
-                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+                    MiniMenu();
                 }
                 else if (input == "s")
                 {
@@ -63,13 +63,12 @@ namespace Children_sRatingApp
                     Console.WriteLine($"Krzysztof's average rating is: {statKrzysztof.Average:N2}");
                     Console.WriteLine($"Krzysztof's max rating is: {statKrzysztof.High:N2}");
                     Console.WriteLine($"Krzysztof's min rating is: {statKrzysztof.Low:N2}");
-                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+                    MiniMenu();
                 }
                 else if (input == "l")
                 {
-                    childInMemoryKrzysztof.WritingOutList();
-                    
-                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+                    childInMemoryKrzysztof.WritingFileIntoList();
+                    MiniMenu();
                 }
                 else
                 {
@@ -80,7 +79,7 @@ namespace Children_sRatingApp
 
         private static void AddSavedRate(IChildren childSavedKrzysztof)
         {
-            Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+            MiniMenu();
             while (true)
             {
                 var input = Console.ReadLine();
@@ -94,14 +93,14 @@ namespace Children_sRatingApp
                     Console.WriteLine("Enter a value.");
                     var input2 = Console.ReadLine();
                     childSavedKrzysztof.AddRating(input2);
-                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+                    MiniMenu();
                 }
                 else if (input == "r")
                 {
                     Console.WriteLine("Enter a value.");
                     var input2 = Console.ReadLine();
                     childSavedKrzysztof.RemoveRating(input2);
-                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+                    MiniMenu();
                 }
                 else if (input == "s")
                 {
@@ -110,17 +109,18 @@ namespace Children_sRatingApp
                     Console.WriteLine($"Krzysztof's average rating is: {statKrzysztof.Average:N2}");
                     Console.WriteLine($"Krzysztof's max rating is: {statKrzysztof.High:N2}");
                     Console.WriteLine($"Krzysztof's min rating is: {statKrzysztof.Low:N2}");
+                    MiniMenu();
                 }
                 else if (input == "l")
                 {
-                    childSavedKrzysztof.WritingOutList();
+                    childSavedKrzysztof.WritingFileIntoList();
                     var n = 1;
                     foreach (var item in childSavedKrzysztof.RatingLists)
                     {
                         Console.WriteLine($"No.{n}:  {item}");
                         n++;
                     }
-                    Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
+                    MiniMenu();
                 }
                 else
                 {
@@ -132,6 +132,11 @@ namespace Children_sRatingApp
         static void OnRateAdded(object sender, EventArgs args)
         {
             Console.WriteLine("Oh no! You're not getting a reward today");
+        }
+
+        private static void MiniMenu()
+        {
+            Console.WriteLine("Select a command:'a', 'r', 's', 'l' or 'q'.");
         }
     }
 }

@@ -26,20 +26,6 @@ namespace Children_sRatingApp
 
         private List<double> ratingList = new List<double>();
 
-        public override void WritingOutList()
-        {
-            using (var reader = File.OpenText($"{Name}{FileNameName}"))
-            {
-                ratingList.Clear();
-                var line = reader.ReadLine();
-                while (line != null)
-                {
-                    var number = double.Parse(line);
-                    ratingList.Add(number);
-                    line = reader.ReadLine();
-                }
-            }
-        }
 
         public override void ChangeName(string newName)
         {
@@ -85,30 +71,11 @@ namespace Children_sRatingApp
             {
                 if (result > 0 && result < 3)
                 {
-                    using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                    {
-                        writer.WriteLine(result);
-                    }
-                    using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                    {
-                        writer.WriteLine($"{actualTime}: {result}");
-                    }
-
-                    if (RateAdded != null)
-                    {
-                        RateAdded(this, new EventArgs());
-                    }
+                    CreateAndWriteFileWithEvent(result);
                 }
                 else if (result >= 3 && result <= 6)
                 {
-                    using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                    {
-                        writer.WriteLine(result);
-                    }
-                    using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                    {
-                        writer.WriteLine($"{actualTime}: {result}");
-                    }
+                    CreateAndWriteFile(result);
                 }
                 else
                 {
@@ -122,63 +89,25 @@ namespace Children_sRatingApp
                     switch (rate)
                     {
                         case "1+":
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                writer.WriteLine(1.5);
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                writer.WriteLine($"{actualTime}: {1.5}");
-                            }
-                            if (RateAdded != null)
-                            {
-                                RateAdded(this, new EventArgs());
-                            }
+                            var caseValue1 = 1.5;
+                            CreateAndWriteFileWithEvent(caseValue1);
                         break;
                         case "2+":
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                writer.WriteLine(2.5);
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                writer.WriteLine($"{actualTime}: {2.5}");
-                            }
-                            if (RateAdded != null)
-                            {
-                                RateAdded(this, new EventArgs());
-                            }
-                        break;
+                            var caseValue2 = 2.5;
+                            CreateAndWriteFileWithEvent(caseValue2);
+                            break;
                         case "3+":
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                writer.WriteLine(3.5);
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                writer.WriteLine($"{actualTime}: {3.5}");
-                            }
+                            var caseValue3 = 3.5;
+                            CreateAndWriteFile(caseValue3);
                         break;
                         case "4+":
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                writer.WriteLine(4.5);
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                writer.WriteLine($"{actualTime}: {4.5}");
-                            }
-                        break;
+                            var caseValue4 = 4.5;
+                            CreateAndWriteFile(caseValue4);
+                            break;
                         case "5+":
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                writer.WriteLine(5.5);
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                writer.WriteLine($"{actualTime}: {5.5}");
-                            }
-                        break;
+                            var caseValue5 = 5.5;
+                            CreateAndWriteFile(caseValue5);
+                            break;
                     }
                     
                 }
@@ -197,23 +126,9 @@ namespace Children_sRatingApp
             {
                 if (result > 0 && result <= 6)
                 {
+                    WritingFileIntoList();
                     ratingList.Remove(result);
-                    File.Delete($"{Name}{FileNameName}");
-                    File.Delete($"{Name}{FileNameAudit}");
-                    using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                    {
-                        foreach (var item in ratingList)
-                        {
-                            writer.WriteLine(item);
-                        }
-                    }
-                    using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                    {
-                        foreach (var item in ratingList)
-                        {
-                            writer.WriteLine($"{actualTime}: {item}");
-                        }
-                    }
+                    DeleteAndRecreateFile();
                 }
                 else
                 {
@@ -227,99 +142,29 @@ namespace Children_sRatingApp
                     switch (rate)
                     {
                         case "1+":
+                            WritingFileIntoList();
                             this.ratingList.Remove(1.5);
-                            File.Delete($"{Name}{FileNameName}");
-                            File.Delete($"{Name}{FileNameAudit}");
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine(item);
-                                }
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine($"{actualTime}: {item}");
-                                }
-                            }
+                            DeleteAndRecreateFile();
                             break;
                         case "2+":
+                            WritingFileIntoList();
                             this.ratingList.Remove(2.5);
-                            File.Delete($"{Name}{FileNameName}");
-                            File.Delete($"{Name}{FileNameAudit}");
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine(item);
-                                }
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine($"{actualTime}: {item}");
-                                }
-                            }
+                            DeleteAndRecreateFile();
                             break;
                         case "3+":
+                            WritingFileIntoList();
                             this.ratingList.Remove(3.5);
-                            File.Delete($"{Name}{FileNameName}");
-                            File.Delete($"{Name}{FileNameAudit}");
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine(item);
-                                }
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine($"{actualTime}: {item}");
-                                }
-                            }
+                            DeleteAndRecreateFile();
                             break;
                         case "4+":
+                            WritingFileIntoList();
                             this.ratingList.Remove(4.5);
-                            File.Delete($"{Name}{FileNameName}");
-                            File.Delete($"{Name}{FileNameAudit}");
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine(item);
-                                }
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine($"{actualTime}: {item}");
-                                }
-                            }
+                            DeleteAndRecreateFile();
                             break;
                         case "5+":
+                            WritingFileIntoList();
                             this.ratingList.Remove(5.5);
-                            File.Delete($"{Name}{FileNameName}");
-                            File.Delete($"{Name}{FileNameAudit}");
-                            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine(item);
-                                }
-                            }
-                            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-                            {
-                                foreach (var item in ratingList)
-                                {
-                                    writer.WriteLine($"{actualTime}: {item}");
-                                }
-                            }
+                            DeleteAndRecreateFile();
                             break;
                     }
 
@@ -327,6 +172,69 @@ namespace Children_sRatingApp
                 else
                 {
                     Console.WriteLine("Invalid value");
+                }
+            }
+        }
+
+        private void DeleteAndRecreateFile()
+        {
+            File.Delete($"{Name}{FileNameName}");
+            File.Delete($"{Name}{FileNameAudit}");
+            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+            {
+                foreach (var item in ratingList)
+                {
+                    writer.WriteLine(item);
+                }
+            }
+            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+            {
+                foreach (var item in ratingList)
+                {
+                    writer.WriteLine($"{actualTime}: {item}");
+                }
+            }
+        }
+
+        private void CreateAndWriteFileWithEvent(double result)
+        {
+            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+            {
+                writer.WriteLine(result);
+            }
+            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+            {
+                writer.WriteLine($"{actualTime}: {result}");
+            }
+            if (RateAdded != null)
+            {
+                RateAdded(this, new EventArgs());
+            }
+        }
+
+        private void CreateAndWriteFile(double result)
+        {
+            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+            {
+                writer.WriteLine(result);
+            }
+            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
+            {
+                writer.WriteLine($"{actualTime}: {result}");
+            }
+        }
+
+        public override void WritingFileIntoList()
+        {
+            using (var reader = File.OpenText($"{Name}{FileNameName}"))
+            {
+                ratingList.Clear();
+                var line = reader.ReadLine();
+                while (line != null)
+                {
+                    var number = double.Parse(line);
+                    ratingList.Add(number);
+                    line = reader.ReadLine();
                 }
             }
         }
