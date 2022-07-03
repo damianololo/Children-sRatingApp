@@ -16,8 +16,8 @@ namespace Children_sRatingApp
                 return this.ratingLists;
             }
         }
-        
-        public InMemoryChild(string name) :base(name)
+
+        public InMemoryChild(string name) : base(name)
         {
         }
 
@@ -55,7 +55,7 @@ namespace Children_sRatingApp
         {
             int result;
             bool success = int.TryParse(rate, out result);
-            if (success == true)
+            if (success)
             {
                 if (result > 0 && result < 3)
                 {
@@ -74,7 +74,7 @@ namespace Children_sRatingApp
                     Console.WriteLine("This grade is out of range. The range is 1-6 every half.");
                 }
             }
-            else if (success == false)
+            else if (!success)
             {
                 if (rate == "1+" || rate == "2+" || rate == "3+" || rate == "4+" || rate == "5+")
                 {
@@ -86,25 +86,25 @@ namespace Children_sRatingApp
                             {
                                 RateAdded(this, new EventArgs());
                             }
-                        break;
+                            break;
                         case "2+":
                             this.ratingLists.Add(2.5);
                             if (RateAdded != null)
                             {
                                 RateAdded(this, new EventArgs());
                             }
-                        break;
+                            break;
                         case "3+":
                             this.ratingLists.Add(3.5);
-                        break;
+                            break;
                         case "4+":
                             this.ratingLists.Add(4.5);
-                        break;
+                            break;
                         case "5+":
                             this.ratingLists.Add(5.5);
-                        break;
+                            break;
                     }
-                    
+
                 }
                 else
                 {
@@ -117,7 +117,7 @@ namespace Children_sRatingApp
         {
             int result;
             bool success = int.TryParse(rate, out result);
-            if (success == true)
+            if (success)
             {
                 if (result > 0 && result <= 6)
                 {
@@ -128,7 +128,7 @@ namespace Children_sRatingApp
                     Console.WriteLine("This grade is out of range. The range is 1-6 every half.");
                 }
             }
-            else if (success == false)
+            else if (!success)
             {
                 if (rate == "1+" || rate == "2+" || rate == "3+" || rate == "4+" || rate == "5+")
                 {
@@ -136,21 +136,21 @@ namespace Children_sRatingApp
                     {
                         case "1+":
                             this.ratingLists.Remove(1.5);
-                        break;
+                            break;
                         case "2+":
                             this.ratingLists.Remove(2.5);
-                        break;
+                            break;
                         case "3+":
                             this.ratingLists.Remove(3.5);
-                        break;
+                            break;
                         case "4+":
                             this.ratingLists.Remove(4.5);
-                        break;
+                            break;
                         case "5+":
                             this.ratingLists.Remove(5.5);
-                        break;
+                            break;
                     }
-                    
+
                 }
                 else
                 {
@@ -158,7 +158,7 @@ namespace Children_sRatingApp
                 }
             }
         }
-        
+
         public override Statistics GetStatistics()
         {
             var result = new Statistics();

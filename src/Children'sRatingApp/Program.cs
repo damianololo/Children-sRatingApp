@@ -43,27 +43,15 @@ namespace Children_sRatingApp
                 }
                 else if (input == "a")
                 {
-                    Console.WriteLine("Enter a value.");
-                    var input2 = Console.ReadLine();
-                    childInMemoryKrzysztof.AddRating(input2);
-                    MiniMenu();
+                    AddRating(childInMemoryKrzysztof);
                 }
                 else if (input == "r")
                 {
-
-                    Console.WriteLine("Enter a value.");
-                    var input2 = Console.ReadLine();
-                    childInMemoryKrzysztof.RemoveRating(input2);
-                    MiniMenu();
+                    RemoveRating(childInMemoryKrzysztof);
                 }
                 else if (input == "s")
                 {
-                    var statKrzysztof = childInMemoryKrzysztof.GetStatistics();
-
-                    Console.WriteLine($"Krzysztof's average rating is: {statKrzysztof.Average:N2}");
-                    Console.WriteLine($"Krzysztof's max rating is: {statKrzysztof.High:N2}");
-                    Console.WriteLine($"Krzysztof's min rating is: {statKrzysztof.Low:N2}");
-                    MiniMenu();
+                    StatsList(childInMemoryKrzysztof);
                 }
                 else if (input == "l")
                 {
@@ -90,26 +78,15 @@ namespace Children_sRatingApp
                 }
                 else if (input == "a")
                 {
-                    Console.WriteLine("Enter a value.");
-                    var input2 = Console.ReadLine();
-                    childSavedKrzysztof.AddRating(input2);
-                    MiniMenu();
+                    AddRating(childSavedKrzysztof);
                 }
                 else if (input == "r")
                 {
-                    Console.WriteLine("Enter a value.");
-                    var input2 = Console.ReadLine();
-                    childSavedKrzysztof.RemoveRating(input2);
-                    MiniMenu();
+                    RemoveRating(childSavedKrzysztof);
                 }
                 else if (input == "s")
                 {
-                    var statKrzysztof = childSavedKrzysztof.GetStatistics();
-
-                    Console.WriteLine($"Krzysztof's average rating is: {statKrzysztof.Average:N2}");
-                    Console.WriteLine($"Krzysztof's max rating is: {statKrzysztof.High:N2}");
-                    Console.WriteLine($"Krzysztof's min rating is: {statKrzysztof.Low:N2}");
-                    MiniMenu();
+                    StatsList(childSavedKrzysztof);
                 }
                 else if (input == "l")
                 {
@@ -132,6 +109,32 @@ namespace Children_sRatingApp
         static void OnRateAdded(object sender, EventArgs args)
         {
             Console.WriteLine("Oh no! You're not getting a reward today");
+        }
+
+        private static void AddRating(IChildren childKrzysztof)
+        {
+            Console.WriteLine("Enter a value.");
+            var input2 = Console.ReadLine();
+            childKrzysztof.AddRating(input2);
+            MiniMenu();
+        }
+
+        private static void RemoveRating(IChildren childKrzysztof)
+        {
+            Console.WriteLine("Enter a value.");
+            var input2 = Console.ReadLine();
+            childKrzysztof.RemoveRating(input2);
+            MiniMenu();
+        }
+
+        private static void StatsList(IChildren statsChildren)
+        {
+            var statKrzysztof = statsChildren.GetStatistics();
+
+            Console.WriteLine($"Krzysztof's average rating is: {statKrzysztof.Average:N2}");
+            Console.WriteLine($"Krzysztof's max rating is: {statKrzysztof.High:N2}");
+            Console.WriteLine($"Krzysztof's min rating is: {statKrzysztof.Low:N2}");
+            MiniMenu();
         }
 
         private static void MiniMenu()

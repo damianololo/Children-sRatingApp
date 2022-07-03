@@ -67,7 +67,7 @@ namespace Children_sRatingApp
         {
             int result;
             bool success = int.TryParse(rate, out result);
-            if (success == true)
+            if (success)
             {
                 if (result > 0 && result < 3)
                 {
@@ -82,31 +82,26 @@ namespace Children_sRatingApp
                     Console.WriteLine("This grade is out of range. The range is 1-6 every half.");
                 }
             }
-            else if (success == false)
+            else if (!success)
             {
                 if (rate == "1+" || rate == "2+" || rate == "3+" || rate == "4+" || rate == "5+")
                 {
                     switch (rate)
                     {
                         case "1+":
-                            var caseValue1 = 1.5;
-                            CreateAndWriteFileWithEvent(caseValue1);
+                            CreateAndWriteFileWithEvent(1.5);
                         break;
                         case "2+":
-                            var caseValue2 = 2.5;
-                            CreateAndWriteFileWithEvent(caseValue2);
+                            CreateAndWriteFileWithEvent(2.5);
                             break;
                         case "3+":
-                            var caseValue3 = 3.5;
-                            CreateAndWriteFile(caseValue3);
+                            CreateAndWriteFile(3.5);
                         break;
                         case "4+":
-                            var caseValue4 = 4.5;
-                            CreateAndWriteFile(caseValue4);
+                            CreateAndWriteFile(4.5);
                             break;
                         case "5+":
-                            var caseValue5 = 5.5;
-                            CreateAndWriteFile(caseValue5);
+                            CreateAndWriteFile(5.5);
                             break;
                     }
                     
@@ -122,49 +117,37 @@ namespace Children_sRatingApp
         {
             int result;
             bool success = int.TryParse(rate, out result);
-            if (success == true)
+            if (success)
             {
                 if (result > 0 && result <= 6)
                 {
-                    WritingGradesIntoList();
-                    this.ratingList.Remove(result);
-                    DeleteAndRecreateFile();
+                    DeleteRateMethod(result);
                 }
                 else
                 {
                     Console.WriteLine("This grade is out of range. The range is 1-6 every half.");
                 }
             }
-            else if (success == false)
+            else if (!success)
             {
                 if (rate == "1+" || rate == "2+" || rate == "3+" || rate == "4+" || rate == "5+")
                 {
                     switch (rate)
                     {
                         case "1+":
-                            WritingGradesIntoList();
-                            this.ratingList.Remove(1.5);
-                            DeleteAndRecreateFile();
+                            DeleteRateMethod(1.5);
                             break;
                         case "2+":
-                            WritingGradesIntoList();
-                            this.ratingList.Remove(2.5);
-                            DeleteAndRecreateFile();
+                            DeleteRateMethod(2.5);
                             break;
                         case "3+":
-                            WritingGradesIntoList();
-                            this.ratingList.Remove(3.5);
-                            DeleteAndRecreateFile();
+                            DeleteRateMethod(3.5);
                             break;
                         case "4+":
-                            WritingGradesIntoList();
-                            this.ratingList.Remove(4.5);
-                            DeleteAndRecreateFile();
+                            DeleteRateMethod(4.5);
                             break;
                         case "5+":
-                            WritingGradesIntoList();
-                            this.ratingList.Remove(5.5);
-                            DeleteAndRecreateFile();
+                            DeleteRateMethod(5.5);
                             break;
                     }
 
@@ -176,29 +159,10 @@ namespace Children_sRatingApp
             }
         }
 
-        private void DeleteAndRecreateFile()
-        {
-            File.Delete($"{Name}{FileNameName}");
-            
-            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-            {
-                foreach (var item in ratingList)
-                {
-                    writer.WriteLine(item);
-                }
-            }
-        }
-
         private void CreateAndWriteFileWithEvent(double result)
         {
-            using (var writer = File.AppendText($"{Name}{FileNameName}"))
-            {
-                writer.WriteLine(result);
-            }
-            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-            {
-                writer.WriteLine($"{actualTime}: {result}");
-            }
+            CreateAndWriteFile(result);
+
             if (RateAdded != null)
             {
                 RateAdded(this, new EventArgs());
@@ -217,6 +181,13 @@ namespace Children_sRatingApp
             }
         }
 
+        private void DeleteRateMethod(double value)
+        {
+            WritingGradesIntoList();
+            this.ratingList.Remove(value);
+            DeleteAndRecreateFile();
+        }
+
         public override void WritingGradesIntoList()
         {
             using (var reader = File.OpenText($"{Name}{FileNameName}"))
@@ -228,6 +199,19 @@ namespace Children_sRatingApp
                     var number = double.Parse(line);
                     ratingList.Add(number);
                     line = reader.ReadLine();
+                }
+            }
+        }
+
+        private void DeleteAndRecreateFile()
+        {
+            File.Delete($"{Name}{FileNameName}");
+
+            using (var writer = File.AppendText($"{Name}{FileNameName}"))
+            {
+                foreach (var item in ratingList)
+                {
+                    writer.WriteLine(item);
                 }
             }
         }
