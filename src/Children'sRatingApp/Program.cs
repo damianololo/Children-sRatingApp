@@ -67,7 +67,7 @@ namespace Children_sRatingApp
                 }
                 else if (input == "l")
                 {
-                    childInMemoryKrzysztof.WritingFileIntoList();
+                    childInMemoryKrzysztof.WritingGradesIntoList();
                     MiniMenu();
                 }
                 else
@@ -113,7 +113,7 @@ namespace Children_sRatingApp
                 }
                 else if (input == "l")
                 {
-                    childSavedKrzysztof.WritingFileIntoList();
+                    childSavedKrzysztof.WritingGradesIntoList();
                     var n = 1;
                     foreach (var item in childSavedKrzysztof.RatingLists)
                     {

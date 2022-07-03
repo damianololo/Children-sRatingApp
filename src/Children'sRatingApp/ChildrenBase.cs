@@ -18,7 +18,7 @@ namespace Children_sRatingApp
     {
         void AddRating(string rate);
         void RemoveRating(string rate);
-        void WritingFileIntoList();
+        void WritingGradesIntoList();
         Statistics GetStatistics();
         string Name {get;}
         event RateAddedDelegate RateAdded;
@@ -40,7 +40,7 @@ namespace Children_sRatingApp
 
         public abstract void RemoveRating(string rate);
 
-        public abstract void WritingFileIntoList();
+        public abstract void WritingGradesIntoList();
 
         public abstract Statistics GetStatistics();
     }

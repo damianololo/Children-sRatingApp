@@ -21,7 +21,7 @@ namespace Children_sRatingApp
         {
         }
 
-        public override void WritingFileIntoList()
+        public override void WritingGradesIntoList()
         {
             var n = 1;
             foreach (var item in ratingLists)

@@ -126,8 +126,8 @@ namespace Children_sRatingApp
             {
                 if (result > 0 && result <= 6)
                 {
-                    WritingFileIntoList();
-                    ratingList.Remove(result);
+                    WritingGradesIntoList();
+                    this.ratingList.Remove(result);
                     DeleteAndRecreateFile();
                 }
                 else
@@ -142,27 +142,27 @@ namespace Children_sRatingApp
                     switch (rate)
                     {
                         case "1+":
-                            WritingFileIntoList();
+                            WritingGradesIntoList();
                             this.ratingList.Remove(1.5);
                             DeleteAndRecreateFile();
                             break;
                         case "2+":
-                            WritingFileIntoList();
+                            WritingGradesIntoList();
                             this.ratingList.Remove(2.5);
                             DeleteAndRecreateFile();
                             break;
                         case "3+":
-                            WritingFileIntoList();
+                            WritingGradesIntoList();
                             this.ratingList.Remove(3.5);
                             DeleteAndRecreateFile();
                             break;
                         case "4+":
-                            WritingFileIntoList();
+                            WritingGradesIntoList();
                             this.ratingList.Remove(4.5);
                             DeleteAndRecreateFile();
                             break;
                         case "5+":
-                            WritingFileIntoList();
+                            WritingGradesIntoList();
                             this.ratingList.Remove(5.5);
                             DeleteAndRecreateFile();
                             break;
@@ -179,19 +179,12 @@ namespace Children_sRatingApp
         private void DeleteAndRecreateFile()
         {
             File.Delete($"{Name}{FileNameName}");
-            File.Delete($"{Name}{FileNameAudit}");
+            
             using (var writer = File.AppendText($"{Name}{FileNameName}"))
             {
                 foreach (var item in ratingList)
                 {
                     writer.WriteLine(item);
-                }
-            }
-            using (var writer = File.AppendText($"{Name}{FileNameAudit}"))
-            {
-                foreach (var item in ratingList)
-                {
-                    writer.WriteLine($"{actualTime}: {item}");
                 }
             }
         }
@@ -224,7 +217,7 @@ namespace Children_sRatingApp
             }
         }
 
-        public override void WritingFileIntoList()
+        public override void WritingGradesIntoList()
         {
             using (var reader = File.OpenText($"{Name}{FileNameName}"))
             {
